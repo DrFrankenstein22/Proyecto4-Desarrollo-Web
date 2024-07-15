@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>POST /api/tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>POST /api/tasks</h1>
+        <form id="post-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required><br><br>
+            <!-- Usar un botón de tipo button en lugar de submit -->
+            <button class="button" type="button" onclick="createTask()">Create Task</button>
+        </form>
+        <div id="post-response"></div>
+    </div>
+
+    <script>
+        function createTask() {
+            const name = document.getElementById('name').value;
+            const description = document.getElementById('description').value;
+            const json = JSON.stringify({ name, description });
+
+            fetch('/api/tasks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: json
+            })
+            .then(response => response.json())
+            .then(data => {
+                const responseDiv = document.getElementById('post-response');
+                responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                // Mostrar ventana emergente
+                alert('Task created successfully!');
+            })
+            .catch(error => {
+                console.error('Error creating task:', error);
+                const responseDiv = document.getElementById('post-response');
+                responseDiv.innerHTML = `<div style="color: red;">Error en la creacion. Por favor vuelve a ingresar sus datos.</div>`;
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GET /api/tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #3e8e41;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GET /api/tasks</h1>
+        <button class="button" onclick="getTasks()">Fetch Tasks</button>
+        <div id="tasks-response"></div>
+    </div>
+
+    <script>
+        function getTasks() {
+            fetch('/api/tasks')
+               .then(response => response.json())
+               .then(data => {
+                   const responseDiv = document.getElementById('tasks-response');
+                   responseDiv.innerHTML = JSON.stringify(data, null, 2);
+               });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET /api/tasks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .button {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #3e8e41;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GET /api/tasks</h1>
+        <button class="button" onclick="showAlert()">Fetch Tasks</button>
+        <div id="tasks-response"></div>
+    </div>
+
+    <script>
+        function getTasks() {
+            fetch('/api/tasks')
+               .then(response => response.json())
+               .then(data => {
+                   const responseDiv = document.getElementById('tasks-response');
+                   responseDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+               });              
+        }
+
+        function showAlert() {
+            alert('¡Se ha iniciado la búsqueda de tareas!'); // Mensaje de alerta
+            getTasks(); // Llamada a la función getTasks() para obtener y mostrar las tareas
+        }
+    </script>
+</body>
+</html>
